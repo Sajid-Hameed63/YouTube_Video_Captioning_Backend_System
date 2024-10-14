@@ -95,7 +95,7 @@ source venv/bin/activate  # For Windows, use `venv\Scripts\activate`
 Install the required Python packages:
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements_YouTube_Video_Captioning_Backend_System.txt
 ```
 
 ### Step 3: Run the Application
