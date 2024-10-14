@@ -9,9 +9,11 @@ This project allows users to download a YouTube video’s audio, perform speaker
 - Speaker diarization with Pyannote
 - Speech recognition using Whisper
 - Multiple caption formats (SRT, VTT, JSON, TXT, CSV)
+- Model pool mechanism
 - GPU and CPU support for machine learning models
 
 ---
+
 
 ## Prerequisites
 
@@ -95,7 +97,7 @@ source venv/bin/activate  # For Windows, use `venv\Scripts\activate`
 Install the required Python packages:
 
 ```bash
-pip install -r requirements_YouTube_Video_Captioning_Backend_System.txt
+pip install -r requirements.txt
 ```
 
 ### Step 3: Run the Application
@@ -155,6 +157,30 @@ YouTube_Video_Captioning_Backend_System/
 └── .gitignore             # The .gitignore file tells Git to ignore certain files or directories so they won’t be tracked or pushed to your repository.
 └── README.md              # Project documentation
 ```
+
+## Model Pooling Mechanism
+
+To efficiently handle multiple requests simultaneously, this system implements a **model pooling mechanism**. Rather than loading a new instance of the model for every incoming request (which would be resource-intensive), the system pre-loads multiple instances of the model into a pool when the server starts.
+
+This pool of models allows for concurrent processing of requests, where each request uses an available model from the pool. If all models are busy, incoming requests wait until a model becomes available, ensuring optimal resource usage and avoiding bottlenecks in performance.
+
+### How It Works:
+- The pool is initialized with a configurable number of model instances. In the current implementation, it creates **2 instances** of the model by default.
+- Each instance in the pool is protected by an asynchronous lock, ensuring that only one request can use a specific model instance at a time.
+- When a request for generating captions is received, the system fetches an available model from the pool. Once the captioning process is complete, the model is returned to the pool, and its lock is released for the next request.
+- If no models are available, the request waits until a model becomes free, maintaining an orderly processing flow.
+
+This pooling mechanism significantly reduces the overhead of repeatedly loading models and improves the overall scalability of the system.
+
+### Configuration:
+You can adjust the number of model instances in the pool based on your server's capacity by modifying the `MODEL_POOL_SIZE` variable in `app.py`:
+
+```python
+MODEL_POOL_SIZE = 2  # Adjust this value based on your system's resources
+```
+
+Increasing this value will allow more concurrent requests to be handled, but it will also require more memory and computational resources.
+
 
 ---
 
