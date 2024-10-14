@@ -59,7 +59,7 @@ echo "HUGGINGFACE_AUTH_TOKEN=your_huggingface_token" > .env
 You need to build the Docker image from the provided Dockerfile.
 
 ```bash
-docker build -t youtube_captioning_system .
+docker build -t youtube_video_captioning_system .
 ```
 
 ### Step 2: Run the Docker Container
@@ -68,14 +68,14 @@ docker build -t youtube_captioning_system .
 If your system supports GPU, you can run the Docker container with GPU acceleration:
 
 ```bash
-docker run --gpus all --env-file .env -p 5000:5000 youtube_captioning_system
+docker run --gpus all --env-file .env -p 5000:5000 youtube_video_captioning_system
 ```
 
 #### Without GPU (CPU only):
 If you don't have a GPU or don't want to use one:
 
 ```bash
-docker run --env-file .env -p 5000:5000 youtube_captioning_system
+docker run --env-file .env -p 5000:5000 youtube_video_captioning_system
 ```
 
 ---
