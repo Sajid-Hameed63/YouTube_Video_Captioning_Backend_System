@@ -9,7 +9,7 @@ This project allows users to download a YouTube video’s audio, perform speaker
 - Speaker diarization with Pyannote
 - Speech recognition using Whisper
 - Multiple caption formats (SRT, VTT, JSON, TXT, CSV)
-- Model pool mechanism
+- Model pool mechanism (Strategy 1) & Requests processing in a queue (Strategy 2)
 - GPU and CPU support for machine learning models
 
 ---
