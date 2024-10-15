@@ -59,7 +59,7 @@ echo "HUGGINGFACE_AUTH_TOKEN=your_huggingface_token" > .env
 You need to build the Docker image from the provided Dockerfile.
 
 ```bash
-docker build -t youtube_video_captioning_system .
+docker build -t youtube_captioning_system .
 ```
 
 ### Step 2: Run the Docker Container
@@ -68,14 +68,24 @@ docker build -t youtube_video_captioning_system .
 If your system supports GPU, you can run the Docker container with GPU acceleration:
 
 ```bash
-docker run --gpus all --env-file .env -p 5000:5000 youtube_video_captioning_system
+sudo docker run --gpus all --network host youtube_video_captioning_system
 ```
 
+
+
 #### Without GPU (CPU only):
-If you don't have a GPU or don't want to use one:
+If you don't have a GPU or don't want to use one (it will take more time for processing on CPU):
 
 ```bash
-docker run --env-file .env -p 5000:5000 youtube_video_captioning_system
+sudo docker run --network host youtube_video_captioning_system
+```
+
+**Note:** If you want to update your HuggingFace access token, you can run the container in interactive mode and write it manually:
+```
+sudo docker run -it --gpus all --network host youtube_video_captioning_system /bin/bash
+sudo docker ps
+sudo docker attach <ID_OF_RUNNING_CONTAINER>
+
 ```
 
 ---
@@ -195,7 +205,11 @@ Increasing this value will allow more concurrent requests to be handled, but it 
    - You’re using the correct Docker run command with `--gpus all`.
 
 2. **Docker: Permission Denied Error**  
-   If Docker gives a permission error, ensure that your user has access to the Docker daemon. 
+   If Docker gives a permission error, ensure that your user has access to the Docker daemon. If flask API is not reachable after running the docker container, try below command:
+   ```bash
+   sudo docker run --gpus all --network host youtube_video_captioning_system
+   ```
+
 
 3. **Pyannote Pipeline Errors**  
    If you encounter errors with the Pyannote pipeline, ensure that:
