@@ -43,7 +43,7 @@ cd YouTube_Video_Captioning_Backend_System
 ### Step 2: Set Up Environment Variables
 This project uses **Pyannote** for speaker diarization, which requires an authentication token from Hugging Face. To get your token:
 1. Sign up for a Hugging Face account.
-2. Obtain your token from [this page](https://huggingface.co/settings/tokens).
+2. Obtain your token from [this page](https://huggingface.co/settings/tokens). If you are using your own access token of Hugging Face, please ensure to get the necessary permissions of pyannote. Go to [link](https://huggingface.co/pyannote/speaker-diarization-3.1) for access to pyannote. 
 
 Create a `.env` file in the root directory:
 
