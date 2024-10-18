@@ -53,36 +53,70 @@ echo "HUGGINGFACE_AUTH_TOKEN=your_huggingface_token" > .env
 
 ---
 
-## Running with Docker
+## Use My Pre-build Docker Image
+
+### Step 1: Pull the Docker Image
+You need to pull the docker image from my account.
+
+```bash
+sudo docker pull sajidhameed63/youtube_captioning_system:lightweight
+```
+
+### Step 2: Run the Container in Interactive Mode and Daemon Mode
+
+```bash
+sudo docker run -it -d --gpus all --network host youtube_captioning_system:lightweight /bin/bash
+sudo docker ps 
+sudo docker attach <running-container-id>
+```
+
+### Step 3: Go inside the Docker Container, install requirements
+
+```bash
+pip3 install -r requirements_YouTube_Video_Captioning_Backend_System.txt
+```
+
+### Step 4: Run the Flask App
+
+```bash
+python3 app.py
+```
+
+Now your Flask app is running, you can use it.
+
+---
+
+## Build Your Docker Image
 
 ### Step 1: Build the Docker Image
 You need to build the Docker image from the provided Dockerfile.
 
 ```bash
-docker build -t youtube_captioning_system .
+sudo docker build -t youtube_video_captioning_system:lightweight .
 ```
 
 ### Step 2: Run the Docker Container
+**Note:** Before running the flask app, make to install the python requirements.
 
 #### With GPU (if available):
 If your system supports GPU, you can run the Docker container with GPU acceleration:
 
 ```bash
-sudo docker run --gpus all --network host youtube_video_captioning_system
-```
+sudo docker run -it --gpus all --network host youtube_video_captioning_system:lightweight
 
+```
 
 
 #### Without GPU (CPU only):
 If you don't have a GPU or don't want to use one (it will take more time for processing on CPU):
 
 ```bash
-sudo docker run --network host youtube_video_captioning_system
+sudo docker run -it --network host youtube_video_captioning_system:lightweight
 ```
 
 **Note:** If you want to update your HuggingFace access token, you can run the container in interactive mode and write it manually:
 ```
-sudo docker run -it --gpus all --network host youtube_video_captioning_system /bin/bash
+sudo docker run -it --gpus all --network host youtube_video_captioning_system:lightweight /bin/bash
 sudo docker ps
 sudo docker attach <ID_OF_RUNNING_CONTAINER>
 
@@ -107,7 +141,7 @@ source venv/bin/activate  # For Windows, use `venv\Scripts\activate`
 Install the required Python packages:
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ### Step 3: Run the Application
