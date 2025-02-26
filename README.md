@@ -73,7 +73,7 @@ sudo docker attach <running-container-id>
 ### Step 3: Go inside the Docker Container, install requirements
 
 ```bash
-pip3 install -r requirements_YouTube_Video_Captioning_Backend_System.txt
+pip3 install -r requirements.txt
 ```
 
 ### Step 4: Run the Flask App
@@ -195,7 +195,7 @@ YouTube_Video_Captioning_Backend_System/
 ├── audio_processing.py    # Audio extraction and diarization logic
 ├── transcription.py       # Speech-to-text functionality using Whisper
 ├── utils.py               # Utility functions like timestamp formatting
-├── requirements_YouTube_Video_Captioning_Backend_System.txt       # Python dependencies
+├── requirements.txt       # Python dependencies
 ├── Dockerfile             # Docker setup for the project
 ├── .env                   # Hugging Face token file
 └── .gitignore             # The .gitignore file tells Git to ignore certain files or directories so they won’t be tracked or pushed to your repository.
